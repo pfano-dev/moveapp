@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   image: {
-    height: 300,
+    height: 280,
     width: "100%",
     resizeMode: "contain",
   },
   middle: {
-    fontWeight: "800",
-    fontSize: 25,
+    fontWeight: "600",
+    fontSize: 20,
     paddingTop: 12,
     paddingLeft: 40,
   },
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 38,
     marginBottom: 5,
     padding: 20,
+    marginTop:30
   },
   subHead: {
     width: "100%",
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    backgroundColor: "#4E7CAA",
+    backgroundColor: "#37474f",
     width: "85%",
     height: 60,
     borderRadius: 15,

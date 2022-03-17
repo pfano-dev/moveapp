@@ -5,7 +5,7 @@ import styles from './styles'
 import Icon from 'react-native-vector-icons/Feather';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconio from 'react-native-vector-icons/MaterialIcons';
-
+import RoomSearch from '../../screen/RoomSearch';
 
 
 
@@ -57,11 +57,10 @@ style={styles.deliveryCard} >
   </TouchableOpacity>
 
 
-  
-  
-
-    <View style={styles.deliveryCard}>
         
+<TouchableOpacity 
+ onPress={()=>navigation.navigate("ScheduleSearch")}
+style={styles.deliveryCard} >
         
     <ImageBackground source={require('../../assets/images/calender.jpg')} style={styles.image}   imageStyle={{borderRadius: 20}}>
     
@@ -82,14 +81,18 @@ style={styles.deliveryCard} >
   
     </ImageBackground>
         
-        
-        </View>
+    </TouchableOpacity>
+       
     
 
 
 </View>
+
 <View style={styles.roomView}>
-<View style={styles.roomCard}>
+<TouchableOpacity 
+ onPress={()=>navigation.navigate("RoomSearch")}
+ style={styles.roomCard}
+ >
 <ImageBackground source={require('../../assets/images/house2.jpg')}
  style={styles.images}   imageStyle={{borderRadius: 20}}>
 
@@ -109,8 +112,8 @@ style={styles.deliveryCard} >
      
      </ImageBackground>
 
-</View>
 
+</TouchableOpacity>
 </View>
 
 

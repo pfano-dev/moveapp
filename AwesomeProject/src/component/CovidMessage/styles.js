@@ -22,11 +22,12 @@ inContainer:{
 
 
     text:{
-        color:"black ",
+        color:"black",
         fontWeight:"600",
-      padding:20,
+      padding:15,
       textAlign:'center',
       width:270,
+      fontSize:18
 
 
     },
@@ -75,20 +76,20 @@ borderRadius:20
     roomCard:{
         backgroundColor:'#74797B',
         width:"95%",
-        height:150,
+        height:170,
         borderRadius:20
 
     },
     images:{
         width:"100%",
-        height:150,
+        height:170,
         
     },
 
     roomCards:{
         backgroundColor:'#74797Baa',
         width:"100%",
-        height:150,
+        height:170,
         borderRadius:20
 
     },

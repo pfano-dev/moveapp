@@ -1,58 +1,92 @@
-// import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
+
+import { View, Text, PermissionsAndroid, Platform} from 'react-native'
+import React,{   useEffect } from 'react';
+import Home from './src/Navigation/Home';
+import YourTrip from './src/screen/DrawerScreen/YourTrip';
+import Setting from './src/screen/DrawerScreen/Setting';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text } from 'react-native'
-import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from "./src/screen/HomeScreen/index"
-import SearchScreen from './src/screen/SearchScreen/index'
+import Geolocation from 'react-native-geolocation-service';
+
+// import Geolocation from '@react-native-community/geolocation';
+
+
+// navigator.geolocation = require('@react-native-community/geolocation');
+
+navigator.geolocation = require('react-native-geolocation-service');
+
+const Drawer = createDrawerNavigator();
+
 
 
 const myIcon = <Icon name="message-text-outline" size={30} color="black" />;
 const myIconi = <Iconi name="menu" size={30} color="black" />;
 
 
-
-const Stack = createNativeStackNavigator();
-
 const App = () => {
-  return (
-    <NavigationContainer>
 
-    <Stack.Navigator>
+
+
+
+  const androidPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: " moveit App  location Permission",
+          message:
+            "moveit App needs access to your location " +
+            "so you can take awesome delevery.",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the location");
+      } else {
+        console.log("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+
+  useEffect(() => {
    
-      <Stack.Screen name="HomeScreen" component={HomeScreen}
+    if (Platform.OS === 'android') {
+      androidPermission();
+    } else {
+      // IOS
+      Geolocation.requestAuthorization();
+    }
+  }, [])
+
+
+
+  return (
+ 
+    <NavigationContainer>
+    <Drawer.Navigator>
+    <Drawer.Screen name="Home" component={Home}
+       options={{
+        headerShown: false,
+      }}
       
-        options={({navigation})=>({
-        headerTitleAlign:'center',
-        headerStyle:{
-          backgroundColor:'#FAFAFA'
-        },
-        headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Hello, Muleya</Text>,
-        headerRight:()=>
-        <View style={{height:35,width:50,alignItems:'center'}}>
-   <Text style={{fontWeight:"bold"}}>{myIcon}</Text>
-        </View>,
-      headerLeft:()=>
-      <View style={{height:35,width:50,alignItems:'center'}}>
-      <Text style={{fontWeight:"bold"}}>{myIconi}</Text>
-           </View>,
-      })}
-      />
-
-<Stack.Screen name="SearchScreen" component={SearchScreen}/>
-
-
-
-
-
-
-    </Stack.Navigator>
-
+    />
+    <Drawer.Screen name="YourTrip" component={YourTrip} />
+    <Drawer.Screen name="Setting" component={Setting} />
+  </Drawer.Navigator> 
   </NavigationContainer>
+ 
+
   )
+
 }
 
 export default App

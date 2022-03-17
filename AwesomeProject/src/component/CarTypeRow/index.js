@@ -10,12 +10,12 @@ const CarTypeRow = (props) => {
 
     const getImage = () => {
       if (type.type === 'Trailer') {
-        return require('../../assets/images/Trailer.png');
+        return require('../../assets/images/Trailer.jpeg');
       }
       if (type.type === 'Bakkie') {
-        return require('../../assets/images/Bakkie.png');
+        return require('../../assets/images/Bakkie.jpeg');
       }
-      return require('../../assets/images/Truck.png');
+      return require('../../assets/images/Truck.jpeg');
     }
   
 
@@ -40,8 +40,8 @@ const CarTypeRow = (props) => {
         </Text>
       </View>
       <View style={styles.rightContainer}>
-        <Ionicons name={'money'} size={18} color={'#42d742'} />
-        <Text style={styles.price}>est. ${type.price}</Text>
+        <Ionicons name={'money'} size={20} color={'#81d4fa'} />
+        <Text style={styles.price}>est. R{type.price}</Text>
       </View>
     
     </View>
