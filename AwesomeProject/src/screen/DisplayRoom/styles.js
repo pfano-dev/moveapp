@@ -2,7 +2,7 @@ import { StyleSheet ,Dimensions} from 'react-native';
 
 
 const {width} = Dimensions.get('screen');
-const cardWidth = width / 1.8;
+const cardWidth = width ;
 
 
 const styles = StyleSheet.create({
@@ -60,9 +60,9 @@ flexDirection:'row',
       },
       card: {
         height: 280,
-        width: cardWidth,
+        width: '90%',
         elevation: 15,
-        marginRight: 20,
+        margin: 20,
         borderRadius: 15,
         backgroundColor: '#eee',
       },
@@ -95,14 +95,7 @@ flexDirection:'row',
         width: '100%',
       },
 
-      OverLay: {
-        height: 280,
-        backgroundColor: 'black',
-        position: 'absolute',
-        zIndex: 100,
-        width: cardWidth,
-        borderRadius: 15,
-      },
+   
       topHotelCard: {
         height: 120,
         width: 120,

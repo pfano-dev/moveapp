@@ -7,16 +7,21 @@ import styles from './styles'
 import Iconi from 'react-native-vector-icons/Feather';
 import hotels from '../../assets/data/hotels';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+
 const {width} = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
-const myIcon = <Iconi name="search" size={30} color="#AAAAAA" />;
-
+const myIcon = <Iconi name="search" size={30} color="#AAAAAA"/>;
+const myIconi = <Icon name="keyboard-arrow-right" size={30} color="black"/>;
+const myIconoi = <Icon name="keyboard-arrow-right" size={16} color="#AAAAAA"/>;
 const SearchBar = () => {
+
+  const navigation = useNavigation();
 
   const categories = ['All', 'Single', 'Family', 'Sharing'];
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
-  const [activeCardIndex, setActiveCardIndex] = React.useState(0);
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const CategoryList = ({navigation}) => {
@@ -86,6 +91,9 @@ const SearchBar = () => {
       outputRange: [0.8, 1, 0.8],
     });
      return (
+      <TouchableOpacity
+      onPress={() => navigation.navigate('RoomDetails', hotel)}
+      >
    <Animated.View style={styles.card}>
 <Animated.View style={{...styles.cardOverLay, opacity}} />
 <View style={styles.priceTag}>
@@ -111,7 +119,9 @@ const SearchBar = () => {
                 </Text>
               </View>
               <Icon name="bookmark-border" size={26} color={"black"} />
+        
             </View>
+            <Text style={{fontSize: 11, color:'black'}}>{hotel.type} </Text>
             <View
               style={{
                 flexDirection: 'row',
@@ -125,12 +135,13 @@ const SearchBar = () => {
                 <Icon name="star" size={15} color='orange' />
                 <Icon name="star" size={15} color='grey' />
               </View>
-              <Text style={{fontSize: 10, color:'grey'}}>365reviews</Text>
+             
+              <Text style={{fontSize: 10, color:'grey'}}>365 reviews</Text>
             </View>
           </View>
    </Animated.View>
         
-     
+   </TouchableOpacity>
     );
   };
 
@@ -139,6 +150,9 @@ const SearchBar = () => {
 
   const TopHotelCard = ({hotel}) => {
     return (
+      <TouchableOpacity
+      onPress={()=> navigation.navigate('RoomDetails', hotel)}
+      >
       <View style={styles.topHotelCard}>
         <View
           style={{
@@ -161,6 +175,7 @@ const SearchBar = () => {
           </Text>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 
@@ -170,7 +185,7 @@ const SearchBar = () => {
 
 
   return (
-    <View style={{backgroundColor:'white'}}>
+    <View style={{backgroundColor:'white',height:'100%'}}>
         <View style={styles.search}>
         <Text style={styles.text}>Find your room or house to rent</Text>
         <View style={styles.inputView}>
@@ -202,7 +217,15 @@ const SearchBar = () => {
             renderItem={({item, index}) => <Card hotel={item} index={index} />}
            
           />
+          <TouchableOpacity style={{flexDirection:'row', justifyContent:"center",alignItems:'center',paddingBottom:20}}
+          onPress={() => navigation.navigate("DisplayRoom")}
+          >
+          <Text style={{color:'black',textAlign:'center', fontSize:20, fontWeight:'bold'}}>Show all</Text>
+          {myIconi}
+          </TouchableOpacity>
+      
         </View>
+  
         <View
           style={{
             flexDirection: 'row',
@@ -210,9 +233,15 @@ const SearchBar = () => {
             marginHorizontal: 20,
           }}>
           <Text style={{fontWeight: 'bold', color:'grey'}}>
-            Top hotels
+          Suggestions
           </Text>
+          <TouchableOpacity 
+          style={{flexDirection:'row', justifyContent:"center",alignItems:'center'}}
+           onPress={() => navigation.navigate("DisplayRoom")}
+          >
           <Text style={{color:'grey'}}>Show all</Text>
+          { myIconoi }
+          </TouchableOpacity>
         </View>
         <FlatList
           data={hotels}

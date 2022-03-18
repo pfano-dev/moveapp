@@ -6,12 +6,13 @@ import React,{   useEffect } from 'react';
 import Home from './src/Navigation/Home';
 import YourTrip from './src/screen/DrawerScreen/YourTrip';
 import Setting from './src/screen/DrawerScreen/Setting';
+import History from './src/screen/DrawerScreen/History';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 import Geolocation from 'react-native-geolocation-service';
-
+import CustomDrawer from "./CustomDrawer";
 // import Geolocation from '@react-native-community/geolocation';
 
 
@@ -72,7 +73,13 @@ const App = () => {
   return (
  
     <NavigationContainer>
-    <Drawer.Navigator>
+    <Drawer.Navigator   
+       drawerContent={
+      (props) => (
+        <CustomDrawer {...props} />)
+    }
+    
+    >
     <Drawer.Screen name="Home" component={Home}
        options={{
         headerShown: false,
@@ -80,7 +87,9 @@ const App = () => {
       
     />
     <Drawer.Screen name="YourTrip" component={YourTrip} />
+    <Drawer.Screen name="History" component={History} />
     <Drawer.Screen name="Setting" component={Setting} />
+
   </Drawer.Navigator> 
   </NavigationContainer>
  

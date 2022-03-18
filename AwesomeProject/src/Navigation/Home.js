@@ -10,7 +10,10 @@ import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RoomSearch from '../screen/RoomSearch';
 import ScheduleSearch from '../screen/SearchScreen/ScheduleSearch';
-
+import DisplayRoom from '../screen/DisplayRoom';
+import RoomDetails from '../screen/RoomDetails';
+import ChatList from '../screen/ChatScreen/ChatList';
+import Inbox from '../screen/ChatScreen/Inbox';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,9 +35,9 @@ const Home = () => {
         },
         headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Hello, Muleya</Text>,
         headerRight:()=>
-        <View style={{height:35,width:50,alignItems:'center'}}>
+        <TouchableOpacity onPress={()=> navigation.navigate('ChatList')} style={{height:35,width:50,alignItems:'center'}}>
    <Text style={{fontWeight:"bold"}}>{myIcon}</Text>
-        </View>,
+        </TouchableOpacity>,
       headerLeft:()=>
       <TouchableOpacity onPress={()=> navigation.openDrawer()} style={{height:35,width:50,alignItems:'center'}}>
       <Text style={{fontWeight:"bold"}}>{myIconi}</Text>
@@ -75,8 +78,41 @@ options={{
 }}
 />
 
+<Stack.Screen name="DisplayRoom" component={DisplayRoom}
+
+options={{
+  headerShown: false,
+}}
+/>
 
 
+<Stack.Screen name="RoomDetails" component={RoomDetails}
+
+options={{
+  headerShown: false,
+}}
+/>
+
+<Stack.Screen name="ChatList" component={ChatList}
+
+options={{
+  title:"Messages",
+  headerTitleAlign:'center',
+}}
+/>
+
+
+<Stack.Screen name="Inbox" component={Inbox}
+
+options={{
+ 
+  elevation:0,
+  headerShadowVisible: false,
+  headerTitleAlign:'center',
+  backgroundColor:'#FAFAFA',
+ 
+}}
+/>
 
 
     </Stack.Navigator>

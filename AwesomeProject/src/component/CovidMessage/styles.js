@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 container:{
 height:"100%",
 width:'100%',
-backgroundColor:'#f5f5f5',
+backgroundColor:'#37474faa',
 alignItems:"center",
 borderTopLeftRadius:35,
 borderTopRightRadius:35,
@@ -37,8 +37,8 @@ flexDirection:'row',
 width:'100%',
 height:220,
 alignItems:'center',
-justifyContent:'space-evenly'
-
+justifyContent:'space-evenly',
+marginBottom:15
     },
 
     deliveryCard:{
