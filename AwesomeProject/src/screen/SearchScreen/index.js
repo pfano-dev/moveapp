@@ -79,7 +79,7 @@ const SearchScreen = () => {
 
       fetchDetails
       query={{
-        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
+        key: '',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}
@@ -117,7 +117,7 @@ const SearchScreen = () => {
 
       fetchDetails
       query={{
-        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
+        key: '',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}
