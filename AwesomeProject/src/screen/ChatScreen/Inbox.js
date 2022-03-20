@@ -1,53 +1,124 @@
-import { View, Text, 
-    Image, KeyboardAvoidingView, TextInput,
-      Platform,
-      Keyboard, TouchableWithoutFeedback } from 'react-native'
-import React from 'react'
+import { View, Text, Image} from 'react-native'
+import React, { useState, useCallback, useEffect } from 'react'
 import styles from './styles'
 import { useRoute } from "@react-navigation/native";
+import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat'
+import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
+
+const myIconio = <Iconi name="send-circle" size={32} color="#263238" />;
+
 const Inbox = () => {
 
-    const route = useRoute();
+  const [messages, setMessages] = useState([]);
 
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: 'good morning',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+        
+      },
+      {
+        _id: 2,
+        text: 'hellow morning',
+        createdAt: new Date(),
+        user: {
+          _id:1 ,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+        
+      },
+
+      
+    ])
+  }, [])
+
+    const route = useRoute();
     const data = route.params;
     const dat = data.image;
 
 
+    const onSend = useCallback((messages = []) => {
+      setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }, [])
+
+
+
+
+
+    const renderBubble =(props)=>{
+      return(
+      
+      <Bubble
+      {...props}
+      
+      wrapperStyle={{
+        right:{
+          backgroundColor:'#263238'
+        }, 
+        left:{
+          backgroundColor:'#fafafa'
+        }
+      }}
+      
+      />
+      
+      )
+      }
+      
+
+
+
+
+
+  
+const renderSend =(props)=>{
+return(
+
+<Send
+{...props}>
+<View>
+{myIconio}
+</View>
+
+</Send>
+
+)
+}
+
+    const Chat = () => {
+      return (
+     
+        <GiftedChat
+        messages={messages}
+        onSend={messages => onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+        renderBubble={renderBubble}
+        alwaysShowSend
+      renderSend={renderSend}
+      />
+
+
+     );
+   };
+ 
   return (
-    <View>
-    <View style={styles.containers}>
-<Image  source={dat}
-            style={styles.image}/>
-            <Text style={{fontSize:30,fontFamily:'sans-serif-thin', paddingBottom:20}}>{data.name}</Text>
-            <Text>{data.detail}</Text>
-    </View>
 
-<View style={styles.textMessage}>  
-    <Text  style={{fontSize:18, color:'black'}}>good day</Text>
+    
+  <Chat/>
 
-</View>
-  
-<View style={[styles.textMessage,{marginRight:5,marginLeft:150,backgroundColor:'#9e9e9e'}]}>  
-    <Text  style={{fontSize:18, color:'black',}}>How far are you?</Text>
 
-</View>
-  
-
-<KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.containerk}
-    > 
-
-         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-         <TextInput placeholder="Type something...." style={styles.textInput} />
-        
-         </TouchableWithoutFeedback>
-        
-        
-    </KeyboardAvoidingView>
-
-    <Text style={{color:'black', position:'absolute',right:10,top:675,fontWeight:'bold'}}>send</Text>
-    </View>
   )
 }
 

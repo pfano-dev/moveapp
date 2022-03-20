@@ -3,13 +3,14 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding: 25,
+    padding: 10,
   },
   image: {
     height: 280,
     width: "100%",
     resizeMode: "contain",
   },
+  
   middle: {
     fontWeight: "600",
     fontSize: 20,
@@ -20,8 +21,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 38,
     marginBottom: 5,
-    padding: 20,
-    marginTop:30
+    padding: 10,
   },
   subHead: {
     width: "100%",

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 
 
 import { View, Text, PermissionsAndroid, Platform} from 'react-native'
-import React,{   useEffect } from 'react';
+import React,{useState, useEffect} from 'react';
 import Home from './src/Navigation/Home';
 import YourTrip from './src/screen/DrawerScreen/YourTrip';
 import Setting from './src/screen/DrawerScreen/Setting';
@@ -11,64 +11,51 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
-import Geolocation from 'react-native-geolocation-service';
-import CustomDrawer from "./CustomDrawer";
+// import Geolocation from 'react-native-geolocation-service';
 // import Geolocation from '@react-native-community/geolocation';
-
-
 // navigator.geolocation = require('@react-native-community/geolocation');
+// navigator.geolocation = require('react-native-geolocation-service');
+import CustomDrawer from "./CustomDrawer";
 
-navigator.geolocation = require('react-native-geolocation-service');
+
 
 const Drawer = createDrawerNavigator();
-
-
-
 const myIcon = <Icon name="message-text-outline" size={30} color="black" />;
 const myIconi = <Iconi name="menu" size={30} color="black" />;
-
-
 const App = () => {
 
-
-
-
-  const androidPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: " moveit App  location Permission",
-          message:
-            "moveit App needs access to your location " +
-            "so you can take awesome delevery.",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the location");
-      } else {
-        console.log("Location permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  }
-
-
-  useEffect(() => {
+  // const androidPermission = async () => {
+  //   try {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  //       {
+  //         title: " moveit App  location Permission",
+  //         message:
+  //           "moveit App needs access to your location " +
+  //           "so you can take awesome delevery.",
+  //         buttonNeutral: "Ask Me Later",
+  //         buttonNegative: "Cancel",
+  //         buttonPositive: "OK"
+  //       }
+  //     );
+  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //       console.log("You can use the location");
+  //     } else {
+  //       console.log("Location permission denied");
+  //     }
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // }
+  // useEffect(() => {
    
-    if (Platform.OS === 'android') {
-      androidPermission();
-    } else {
-      // IOS
-      Geolocation.requestAuthorization();
-    }
-  }, [])
+  //   androidPermission()
+  
+    
+  // }, [])
 
 
+ 
 
   return (
  
@@ -81,6 +68,8 @@ const App = () => {
     
     >
     <Drawer.Screen name="Home" component={Home}
+     
+
        options={{
         headerShown: false,
       }}

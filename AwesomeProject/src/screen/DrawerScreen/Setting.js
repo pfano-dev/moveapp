@@ -3,8 +3,8 @@ import React from 'react'
 
 const Setting = () => {
   return (
-    <View>
-      <Text>Setting</Text>
+    <View style={{justifyContent:'center',alignItems:"center", flex:1}}>
+      <Text style={{fontSize:30, fontWeight:'bold'}}>Setting</Text>
     </View>
   )
 }

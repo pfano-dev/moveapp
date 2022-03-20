@@ -2,19 +2,19 @@ export default [
   {
     id: '0',
     type: 'Trailer',
-    price: 22,
+    price: 5,
     duration: 'up to 500kg',
   },
   {
     id: '1',
     type: 'Bakkie',
-    price: 27,
+    price: 7,
     duration:'up to 1200kg',
   },
   {
     id: '2',
     type: 'Truck',
-    price: 36,
+    price: 10,
     duration: 'up to 5000kg',
   },
 ]

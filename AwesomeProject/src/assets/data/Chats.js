@@ -28,7 +28,7 @@ const Chats = [
       name: 'GaliGali',
       message: ' noth west Main street',
       time: "yesterday",
-      image: require('../../assets/images/profile.jpg'),
+      image: require('../../assets/images/profile2.jpg'),
       detail:'Driver'
     },
   ];

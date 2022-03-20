@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "../screen/HomeScreen/index"
@@ -14,6 +14,11 @@ import DisplayRoom from '../screen/DisplayRoom';
 import RoomDetails from '../screen/RoomDetails';
 import ChatList from '../screen/ChatScreen/ChatList';
 import Inbox from '../screen/ChatScreen/Inbox';
+import Payment from '../screen/Payment';
+import Now from '../screen/FinalScreen/Now';
+import Schedule from '../screen/FinalScreen/Schedule';
+import TripDetails from '../screen/DisplayRoom/TripDetails';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +27,8 @@ const myIconi = <Iconi name="menu" size={30} color="black" />;
 
 
 const Home = () => {
+
+ 
   return (
 
     <Stack.Navigator>
@@ -60,8 +67,16 @@ options={{
 <Stack.Screen name="ConfimScreen" component={ConfimScreen}
 
 options={{
-  headerShown: false,
+  headerShadowVisible: false,
+  headerTitleAlign:'center',
+headerStyle:{
+  backgroundColor:'white'
+
+},
+headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}>    </Text>,
+
 }}
+
 />
 
 <Stack.Screen name="RoomSearch" component={RoomSearch}
@@ -104,15 +119,74 @@ options={{
 
 <Stack.Screen name="Inbox" component={Inbox}
 
+options={({route})=>({
+ 
+
+
+  headerRight:()=>
+        <View style={{height:35,width:50,alignItems:'center',flexDirection:'row'}}>
+     
+   <Text style={{fontWeight:"bold"}}>{route.params.detail}</Text>
+        </View>,
+ headerTitle:props=>
+ 
+ <View style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between', width:150}}>
+         <Image style={{   width:40,
+   height:40,
+   borderRadius:50,}} source={route.params.image} />
+    <Text  style={{fontWeight:"bold",fontSize:18}}>{route.params.name}</Text>
+ </View>
+,
+})
+
+}
+
+/>
+
+<Stack.Screen name="Payment" component={Payment}
+
 options={{
- 
-  elevation:0,
-  headerShadowVisible: false,
+  headerStyle:{
+    backgroundColor:'#eee'
+  },
   headerTitleAlign:'center',
-  backgroundColor:'#FAFAFA',
- 
+  headerShadowVisible: false,
+  headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Payment Information</Text>,
 }}
 />
+
+<Stack.Screen name="Now" component={Now}
+
+options={{
+  headerShown: false,
+}}
+/>
+
+
+<Stack.Screen name="Schedule" component={Schedule}
+
+options={{
+  headerStyle:{
+    backgroundColor:'white'
+  },
+  headerTitleAlign:'center',
+  headerShadowVisible: false,
+  headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}>Your Delivery</Text>,
+}}
+/>
+
+<Stack.Screen name="TripDetails" component={TripDetails}
+
+options={{
+  headerStyle:{
+    backgroundColor:'#eee'
+  },
+  headerTitleAlign:'center',
+  headerShadowVisible: false,
+  headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}>Your Delivery</Text>,
+}}
+/>
+
 
 
     </Stack.Navigator>

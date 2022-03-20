@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/MaterialIcons";
 const CarTypeRow = (props) => {
 
 
-    const {type} = props;
+    const {type ,distance } = props;
 
     const getImage = () => {
       if (type.type === 'Trailer') {
@@ -18,13 +18,14 @@ const CarTypeRow = (props) => {
       return require('../../assets/images/Truck.jpeg');
     }
   
+    const distan =  type.price*distance
 
+const distances = parseInt(distan, 10)
 
   return (
     <View
       style={styles.container }
   >
-
       {/*  Image */}
       <Image
         style={styles.image}
@@ -41,7 +42,7 @@ const CarTypeRow = (props) => {
       </View>
       <View style={styles.rightContainer}>
         <Ionicons name={'money'} size={20} color={'#81d4fa'} />
-        <Text style={styles.price}>est. R{type.price}</Text>
+        <Text style={styles.price}>est. R{distances+2}</Text>
       </View>
     
     </View>

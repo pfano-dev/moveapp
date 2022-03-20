@@ -4,16 +4,14 @@ import styles from "./styles.js";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useRoute } from "@react-navigation/native";
 
-
 const myIcon1 = <Icon name="hand-point-right" size={30} color="black" />;
 
 
-const ConfimScreen = () => {
+const ConfimScreen = ({navigation}) => {
 
   const route = useRoute();
-
   const data = route.params;
-console.log(data)
+  console.log(data)
   const types = data.type;
 
   const getImage = () => {
@@ -26,7 +24,9 @@ console.log(data)
     return require('../../assets/images/Truck.jpeg');
   }
 
+const distan =  types.price*data.distance
 
+const distances = parseInt(distan, 10)
 
   return (
     <View style={{ backgroundColor: "white", height: "100%" }}>
@@ -45,18 +45,16 @@ console.log(data)
           ?   <Text style={styles.middle}> Date: {data.date}</Text>
           : null
         }
-
-        
-          <Text style={styles.middle}> FROM: {data.origin}</Text>
-          <Text style={styles.middle}> TO: {data.destination}</Text>
-          <Text style={styles.middle}> Distence : 100km</Text>
-          <Text style={styles.middle}> Total Price R{types.price} </Text>
+          <Text style={styles.middle}> FROM: Your {data.origins}</Text>
+          <Text style={styles.middle}> TO: {data.destinations}</Text>
+          <Text style={styles.middle}> Distence : {data.distance} km</Text>
+          <Text style={styles.middle}> Total Price R{distances+2} </Text>
           <Text style={styles.middle}> Carry {types.duration}</Text>
         </View>
 
         <View style={styles.btnView}>
           <TouchableOpacity style={styles.btn}
-            //  onPress={() => navigation.navigate("Drivers",{data})}
+            onPress={() => navigation.navigate("Payment",{data ,distances})}
           >
        
             <Text style={styles.btnText}>Confirm {types.type}</Text>

@@ -6,10 +6,53 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/Feather';
 import PlaceRow from "./PlaceRow";
 import Entypo from "react-native-vector-icons/Entypo";
+import * as Location from 'expo-location';
 
 const myIcon = <Icon name="clock" size={30} color="black"/>
 
 const SearchScreen = () => {
+
+ 
+  const [location, setLocation] = useState(
+
+ {   coords:{
+      accuracy: 899.9990234375,
+      altitude: 0,
+      altitudeAccuracy: 0,
+      heading: 0,
+      latitude: -25.7159813,
+      longitude: 28.360622,
+      speed: 0,
+    },
+}
+  );
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+
+  
+    })();
+  }, []);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
+  console.log(location.coords.latitude)
+  console.log(location.coords.longitude)
+
 
   const navigation = useNavigation();
 
@@ -17,11 +60,11 @@ const SearchScreen = () => {
   const [destinationPlace, setDestinationPlace] = useState(null);
 
   const homePlace = {
-    description: 'Home',
-    geometry: { location: { lat: 48.8152937, lng: 2.4597668 } },
+    description: 'current location',
+    geometry: { location: { lat:location.coords.latitude, lng:location.coords.longitude} },
   };
   const workPlace = {
-    description: 'Work',
+    description: 'Home',
     geometry: { location: { lat: 48.8496818, lng: 2.2940881 } },
   };
 
@@ -56,11 +99,9 @@ const SearchScreen = () => {
       placeholder='Search'
       onPress={(data, details = null) => {
         setOriginPlace({data , details})
-        console.log(data, details);
+     
       }}
       suppressDefaultStyles
-      currentLocation={true}
-      currentLocationLabel='Current location'
       styles={{
         separator: styles.separator,
         textInput:styles.textInput,
@@ -79,7 +120,7 @@ const SearchScreen = () => {
 
       fetchDetails
       query={{
-        key: '',
+        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}
@@ -91,7 +132,7 @@ const SearchScreen = () => {
       placeholder='Where To'
       onPress={(data, details = null) => {
         setDestinationPlace({data , details})
-        console.log(data, details);
+      
       }}
       suppressDefaultStyles
 
@@ -117,7 +158,7 @@ const SearchScreen = () => {
 
       fetchDetails
       query={{
-        key: '',
+        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}

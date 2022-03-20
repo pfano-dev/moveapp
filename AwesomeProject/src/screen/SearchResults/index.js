@@ -16,8 +16,7 @@ const SearchResults = () => {
 
   return (
     <View>
-  <MapViews origin={originPlace} destination={destinationPlace}  />
-  <CarType origin={originName} destination={destinationName}  date ={date} />
+  <CarType origins={originName} destinations={destinationName}  date ={date}  origin={originPlace} destination={destinationPlace} />
     </View>
   )
 }

@@ -109,7 +109,7 @@ const ScheduleSearch = () => {
 
       fetchDetails
       query={{
-        key: '',
+        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}
@@ -146,7 +146,7 @@ const ScheduleSearch = () => {
 
       fetchDetails
       query={{
-        key: '',
+        key: 'AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w',
         language: 'en',
       }}
       renderRow={(data) => <PlaceRow data={data} />}
