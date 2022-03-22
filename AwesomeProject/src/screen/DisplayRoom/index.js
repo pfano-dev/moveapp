@@ -2,7 +2,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
     FlatList,
     SafeAreaView,
     ScrollView } from 'react-native'
-  import React from 'react'
+  import React,{useState, useEffect} from 'react'
   import styles from './styles'
   import Iconi from 'react-native-vector-icons/Feather';
   import hotels from '../../assets/data/hotels';
@@ -22,6 +22,9 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
     const [activeCardIndex, setActiveCardIndex] = React.useState(0);
     const scrollX = React.useRef(new Animated.Value(0)).current;
   
+
+    
+
     const CategoryList = ({navigation}) => {
       return (
         <View style={styles.categoryListContainer}>
@@ -45,6 +48,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
                 >
                   {item}
                 </Text>
+                
         
                 {selectedCategoryIndex == index && (
                   <View
@@ -55,6 +59,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
                       marginTop: 2,
                     }}
                   />
+                
                 )}
   
               </View>
@@ -131,8 +136,22 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   
   
   
+    const [dataState,setData] = useState(hotels)
 
-  
+    const searchName =(input)=>{
+
+      let data = dataState
+      let searchData = data.filter((item)=>{
+        return item.location.toLowerCase().includes(input.toLowerCase())
+      });
+
+{ input?
+  setData(searchData):
+  setData(hotels)
+}
+  }
+    
+
   
   
   
@@ -147,6 +166,9 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   <TextInput
           style={styles.input}
           placeholder="Search Location"
+          onChangeText={(input)=>{
+            searchName(input)
+          }}
     
         />
           </View>
@@ -156,9 +178,9 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
 
          
             <Animated.FlatList
-              data={hotels}
+            data={dataState}
               renderItem={({item, index}) => <Card hotel={item} index={index} />}
-             
+              keyExtractor={(item, index) =>index.toString()} 
             />
           
        

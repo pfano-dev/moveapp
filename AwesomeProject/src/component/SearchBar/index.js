@@ -2,7 +2,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   FlatList,
   SafeAreaView,
   ScrollView } from 'react-native'
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import styles from './styles'
 import Iconi from 'react-native-vector-icons/Feather';
 import hotels from '../../assets/data/hotels';
@@ -20,7 +20,7 @@ const SearchBar = () => {
   const navigation = useNavigation();
 
   const categories = ['All', 'Single', 'Family', 'Sharing'];
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -167,6 +167,26 @@ const SearchBar = () => {
     );
   };
 
+const [dataState,setData] = useState(hotels)
+
+
+const searchName =(input)=>{
+
+  let data = dataState
+  let searchData = data.filter((item)=>{
+    return item.location.toLowerCase().includes(input.toLowerCase())
+  });
+
+{ input?
+setData(searchData):
+setData(hotels)
+}
+}
+
+
+
+
+
 
 
 
@@ -182,7 +202,11 @@ const SearchBar = () => {
 <TextInput
         style={styles.input}
         placeholder="Search Location"
-  
+    onChangeText={(input)=>{
+searchName(input)
+
+    }}
+
       />
         </View>
         </View>
@@ -191,15 +215,15 @@ const SearchBar = () => {
         <View>
           <FlatList
             horizontal
-            data={hotels}
+            data={dataState}
             contentContainerStyle={{
               paddingVertical: 30,
               paddingLeft: 20,
             }}
-            keyExtractor={item => item.id} 
+           
             showsHorizontalScrollIndicator={false}
             renderItem={({item, index}) => <Card hotel={item} index={index} />}
-           
+            keyExtractor={(item, index) =>index.toString()} 
           />
           <TouchableOpacity style={{flexDirection:'row', justifyContent:"center",alignItems:'center',paddingBottom:20}}
           onPress={() => navigation.navigate("DisplayRoom")}
