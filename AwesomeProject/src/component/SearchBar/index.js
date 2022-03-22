@@ -77,25 +77,13 @@ const SearchBar = () => {
 
 
   const Card = ({hotel, index}) => {
-    const inputRange = [
-      (index - 1) * cardWidth,
-      index * cardWidth,
-      (index + 1) * cardWidth,
-    ];
-    const opacity = scrollX.interpolate({
-      inputRange,
-      outputRange: [0.7, 0, 0.7],
-    });
-    const scale = scrollX.interpolate({
-      inputRange,
-      outputRange: [0.8, 1, 0.8],
-    });
+ 
+    
      return (
       <TouchableOpacity
       onPress={() => navigation.navigate('RoomDetails', hotel)}
       >
    <Animated.View style={styles.card}>
-<Animated.View style={{...styles.cardOverLay, opacity}} />
 <View style={styles.priceTag}>
             <Text
               style={{color: "#eee", fontSize: 20, fontWeight: 'bold'}}>
@@ -201,18 +189,14 @@ const SearchBar = () => {
         <CategoryList />
    
         <View>
-          <Animated.FlatList
-        
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {useNativeDriver: true},
-        )}
+          <FlatList
             horizontal
             data={hotels}
             contentContainerStyle={{
               paddingVertical: 30,
               paddingLeft: 20,
             }}
+            keyExtractor={item => item.id} 
             showsHorizontalScrollIndicator={false}
             renderItem={({item, index}) => <Card hotel={item} index={index} />}
            
