@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React ,{useState , useEffect} from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "../screen/HomeScreen/index"
 import SearchScreen from '../screen/SearchScreen/index'
@@ -17,8 +17,9 @@ import Inbox from '../screen/ChatScreen/Inbox';
 import Payment from '../screen/Payment';
 import Now from '../screen/FinalScreen/Now';
 import Schedule from '../screen/FinalScreen/Schedule';
-import TripDetails from '../screen/DisplayRoom/TripDetails';
-
+import TripDetails from '../screen/DrawerScreen/YourTrip';
+import { Auth , graphqlOperation } from 'aws-amplify';
+import { API } from 'aws-amplify';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,27 @@ const myIconi = <Iconi name="menu" size={30} color="black" />;
 
 const Home = () => {
 
+  const [name, setName] = useState('')
+
+
+  const onSubmit = async () => {
+
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+const name = user.username
+console.log(name)
+    setName(name)
+
+} catch (err) { console.log('error fetching actors') }
+  }
+
+
+
+
+  useEffect(() => {
+    onSubmit()
+
+}, [])
  
   return (
 
@@ -40,7 +62,8 @@ const Home = () => {
         headerStyle:{
           backgroundColor:'#FAFAFA'
         },
-        headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Hello, Muleya</Text>,
+        headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Hello, {name}
+        </Text>,
         headerRight:()=>
         <TouchableOpacity onPress={()=> navigation.navigate('ChatList')} style={{height:35,width:50,alignItems:'center'}}>
    <Text style={{fontWeight:"bold"}}>{myIcon}</Text>

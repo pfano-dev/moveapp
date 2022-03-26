@@ -44,14 +44,14 @@ const AddRoom = () => {
           <TextInput placeholder="Rooms name" style={styles.textInput}  />
           <TextInput placeholder="Room type" style={styles.textInput} />
           <TextInput placeholder="Room Location" style={styles.textInput} />
-          <TextInput placeholder="Provice" style={styles.textInput} />
+          <TextInput placeholder="Province" style={styles.textInput} />
           <TextInput placeholder="Price" style={styles.textInput} />
 
 
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width:'100%' }}>
           <TouchableOpacity  onPress={pickImage}  style={[styles.btnContainer,{width:'100%',flexDirection:'row', 
              marginTop: 0,marginBottom:15,backgroundColor:'white',borderWidth:1,borderColor:'black' }]}>
-         <Text style={{fontSize:20,fontWeight:'bold'}}>uploud photos</Text>
+         <Text style={{fontSize:20,fontWeight:'bold'}}>upload photos</Text>
          {myIcon}
           </TouchableOpacity>
 

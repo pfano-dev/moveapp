@@ -5,8 +5,9 @@ import Ionicons from "react-native-vector-icons/MaterialIcons";
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useRoute } from "@react-navigation/native";
-
-
+import { Auth , API , graphqlOperation } from 'aws-amplify';
+import { createNow } from '../../graphql/mutations';
+import { createSchedule } from '../../graphql/mutations';
 
 
 const Payment = ({navigation}) => {
@@ -14,16 +15,118 @@ const Payment = ({navigation}) => {
   const route = useRoute();
 
   const data = route.params;
-
+console.log(types)
   const types = data.data;
-
   const typ=types.type
-  console.log(data)
+
+const dates =types.date
+
+  const destLat =types.originLoc.latitude
+  const destLon =types.originLoc.longitude
+
+  const oriLat =types.destinationLoc.latitude
+  const oriLon =types.destinationLoc.longitude
+
+  const origin =types.origins
+  const destination =types.destinations
+  const prices = data.distances;
+  const car = typ.type
+ 
+
+
+  const onSubmit = async () => {
+    // submit to server
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+
+      const input = {
+        id:user.attributes.sub,
+        name:user.username,
+        destinationLat:destLat,
+        destinationLong: destLon,
+        originLat:oriLat,
+        originLong:oriLon,
+        destinations:destination ,
+        origins: origin,
+        price:prices, 
+        type:car
+      }
+
+      const response = await API.graphql(
+        graphqlOperation(
+          createNow, {
+            input: input
+          },
+        )
+      )
+
+      console.log(response);
+
+      navigation.navigate('Now',{types});
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+
+
+
+  const handleSubmit = async () => {
+    // submit to server
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+
+      const input = {
+        id:user.attributes.sub,
+        date:dates,
+        name:user.username,
+        destinationLat:destLat,
+        destinationLong: destLon,
+        originLat:oriLat,
+        originLong:oriLon,
+        destinations:destination ,
+        origins: origin,
+        price:prices, 
+        type:car
+      }
+
+      const response = await API.graphql(
+        graphqlOperation(
+          createSchedule , {
+            input: input
+          },
+        )
+      )
+
+      console.log(response);
+
+      navigation.navigate('Schedule',{types});
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const nav = () => {
     types.date
-    ? navigation.navigate("Schedule",{types})
-    : navigation.navigate("Now",{types}) 
+    ? handleSubmit() 
+    :  onSubmit ()
   }
 
 

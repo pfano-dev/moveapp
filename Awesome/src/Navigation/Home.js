@@ -5,14 +5,15 @@ import AddRoom from '../screens/AddRoom'
 import AddVehicle from '../screens/AddVehicle'
 import ViewRoom from '../screens/ViewRoom'
 import DriverMap from '../screens/DriverMap'
+import Notification from '../screens/Notification'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createNativeStackNavigator();
 
-const myIcon = <Icon name="message-text-outline" size={30} color="black" />;
+const myIcon = <Icon name="car-repair" size={30} color="black" />;
 const myIconi = <Iconi name="menu" size={30} color="black" />;
 
 const Home = () => {
@@ -23,7 +24,7 @@ const Home = () => {
         <Stack.Screen name="HomeScreen" component={HomeScreen}
 options={({navigation})=>({
   headerShadowVisible: false,
-  title:"Drivers App",
+  title:" MoveIT Admin App",
   headerTitleAlign:'center',
 
   headerLeft:()=>
@@ -65,6 +66,24 @@ options={{
   title:"POST A ROOM",
   headerTitleAlign:'center',
 }}/>
+<Stack.Screen name="DriverMap" component={DriverMap}
+options={{
+  headerShown: false,
+}}/>
+
+<Stack.Screen name="Notification" component={Notification}
+options={({navigation})=>({
+  headerShadowVisible: false,
+  title:"Notification",
+  headerTitleAlign:'center',
+
+  headerRight:()=>
+  <TouchableOpacity onPress={()=> navigation.navigate('AddVehicle')} style={{height:35,width:50,alignItems:'center'}}>
+<Text style={{fontWeight:"bold"}}>{myIcon}</Text>
+  </TouchableOpacity>,
+})}/>
+
+
 
 
 

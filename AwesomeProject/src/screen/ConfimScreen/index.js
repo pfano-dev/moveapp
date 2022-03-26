@@ -45,7 +45,7 @@ const distances = parseInt(distan, 10)
           ?   <Text style={styles.middle}> Date: {data.date}</Text>
           : null
         }
-          <Text style={styles.middle}> FROM: Your {data.origins}</Text>
+          <Text style={styles.middle}> FROM: {data.origins}</Text>
           <Text style={styles.middle}> TO: {data.destinations}</Text>
           <Text style={styles.middle}> Distence : {data.distance} km</Text>
           <Text style={styles.middle}> Total Price R{distances+2} </Text>

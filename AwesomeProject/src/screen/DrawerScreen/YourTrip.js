@@ -1,35 +1,117 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity,RefreshControl } from 'react-native'
+import React,{useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native';
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { listNows } from '../../graphql/queries'
+import { listSchedules } from '../../graphql/queries'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const YourTrip  = () => {
   
   const navigation = useNavigation();
 
-  const Historys = [
-    {
-      id: '0',
-      location: 'mamelodi TO thembisa',
-      day: '20-08-2022',
-      duration: '15 days left',
-    },
-    {
-      id: '1',
-      location: 'Limpopo TO Gauteng',
-      day: '10-01-2022',
-      duration: '7 days left',
-    },
+  const [refreshing, setRefreshing] = useState(false);
+  
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchRooms();
+    await fetchSchedule();
+    setRefreshing(false);
+  };
+
+  const [oders, setOders] = useState([])
+  
+
+  const [schedule, setSchedule] = useState([])
+
+
+
+  const fetchRooms = async () => {
+    
+    try {
+        const listData = await API.graphql(graphqlOperation(listNows))
+        const oders = listData.data.listNows.items
+     console.log(oders)
+   setOders(oders)
+
+  } catch (err) { console.log('error fetching actors') }
+
+}
+
+
+
+const fetchSchedule = async () => {
+    
+  try {
+      const listData = await API.graphql(graphqlOperation(listSchedules))
+      const schedule = listData.data.listSchedules.items
+   console.log(schedule)
+ setSchedule(schedule)
+
+} catch (err) { console.log('error fetching actors') }
+
+}
+
+
+
    
-  ];
+useEffect(() => {
+  fetchRooms();
+  fetchSchedule()
+}, [])
 
 
 
 
-  const List = ({Chat, index}) => {
+
+const ScheduleDis = ({typ}) => {
+   
+  return (
+   <TouchableOpacity
+
+   >
+       <View style={styles.container}>
+           <View style={styles.inner}>
+
+          
+<View>
+
+<Text style={styles.name}> From : {typ.origins} </Text>
+
+<Text style={styles.name}>To : {typ.destinations}</Text>
+<Text style={styles.name}>Date : {typ.date}</Text>
+
+</View>
+</View>
+<View>
+
+<Text style={styles.message}>{typ.createdAt}</Text>
+
+
+<View style={[styles.containers,{marginTop:50, marginLeft:80}]}>
+<Text style={[styles.message,{}]}>schedule</Text>
+</View>
+       
+</View>
+
+          
+       </View>
+ 
+</TouchableOpacity>
+  
+ );
+};
+
+
+
+
+
+  const List = ({type}) => {
    
     return (
      <TouchableOpacity
-     onPress={() => navigation.navigate('TripDetails', Chat)}
+
      >
          <View style={styles.container}>
              <View style={styles.inner}>
@@ -37,17 +119,21 @@ const YourTrip  = () => {
             
 <View>
 
-<Text style={styles.name}>{Chat.location} </Text>
+<Text style={styles.name}> From : {type.origins} </Text>
 
-<Text style={styles.textMessage}>{Chat.day}</Text>
+<Text style={styles.name}>To : {type.destinations}</Text>
 
 </View>
 </View>
-
+<View>
 <View style={styles.containers}>
-<Text style={styles.message}>{Chat.duration}</Text>
+<Text style={styles.message}>{type.createdAt}</Text>
 </View>
-           
+<View style={[styles.containers,{marginTop:50}]}>
+<Text style={[styles.message,{}]}>Now</Text>
+</View>   
+
+</View>
          </View>
    
   </TouchableOpacity>
@@ -58,13 +144,73 @@ const YourTrip  = () => {
 
 
   return (
+
+    <ScrollView    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
     <View>
-<FlatList
+
+
+
+
+{oders.map((row) => (
+
+<TouchableOpacity
+key={row?.id}>  
+
+     <List
+          type={row}
+          key={row?.id}
+       
+        />
+         </TouchableOpacity>
+      ))}
+
+
+
+
+{schedule.map((row) => (
+
+<TouchableOpacity
+key={row?.id}>  
+     <ScheduleDis
+          typ={row}
+          key={row?.id}
+       
+        />
+         </TouchableOpacity>
+      ))}
+
+
+
+
+
+
+
+
+{/*   
+
+{oders.map((row) => (
+
+
+
+<View key={row?.id}>
+    <Text>
+        {row?.destinations}
+    </Text>
+  
+
+</View>
+))} */}
+
+
+{/* <FlatList
               data={Historys}
               renderItem={({item, index}) => <List Chat={item} index={index} />}
              
-            />
+            /> */}
     </View>
+    </ScrollView>
   )
 }
 
@@ -92,9 +238,10 @@ height:40
    },
    
    name:{
-       fontSize:20,
+       fontSize:15,
        fontWeight:'bold',
-       padding:10
+       padding:10,
+       width:250
    },
  
    message:{

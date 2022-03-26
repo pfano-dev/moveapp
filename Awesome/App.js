@@ -4,16 +4,25 @@ import 'react-native-gesture-handler';
 import { View, Text, PermissionsAndroid, Platform} from 'react-native'
 import React,{useState, useEffect} from 'react';
 import Home from './src/Navigation/Home';
-// import YourTrip from './src/screen/DrawerScreen/YourTrip';
-// import Setting from './src/screen/DrawerScreen/Setting';
-// import History from './src/screen/DrawerScreen/History';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomDrawer from "./CustomDrawer";
+import Amplify from 'aws-amplify';
+import awsconfig from './src/aws-exports';
+import { withAuthenticator } from 'aws-amplify-react-native'
+import { AmplifyTheme } from 'aws-amplify-react-native';
 
+Amplify.configure({
+  ...awsconfig,
+  Analytics: {
+    disabled: true,
+  },
+});
 
+const myButton = Object.assign({}, AmplifyTheme.button, { backgroundColor: 'black' });
+const MyTheme = Object.assign({}, AmplifyTheme, { button: myButton });
 
 const Drawer = createDrawerNavigator();
 const myIcon = <Icon name="message-text-outline" size={30} color="black" />;
@@ -53,7 +62,8 @@ const App = () => {
 
 }
 
-export default App
+export default withAuthenticator(App, false, [], null, MyTheme);
+
 
 
 

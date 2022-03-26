@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "awesomeproject",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\codetribe\\Documents\\GitHub\\moveapp\\awesomeproject\\amplify\\backend\\api\\awesomeproject\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authawesomeproject46ff1b5f"
+      }
+    ]
+  }
+}

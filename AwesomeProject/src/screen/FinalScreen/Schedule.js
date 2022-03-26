@@ -1,11 +1,11 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity,Alert } from 'react-native'
 import React from 'react'
 import styles from './styles';
 import { useRoute } from "@react-navigation/native";
 
 
 
-const Schedule = () => {
+const Schedule = ( {navigation}) => {
 
     const route = useRoute();
 
@@ -28,6 +28,27 @@ const Schedule = () => {
       const distan =  type.price*types.distance
 
 const distances = parseInt(distan, 10)
+
+const  alertMessage =()=>{
+
+  Alert.alert(
+    'Done',
+
+    'You Succesfully Scheduled your Delivery',
+
+    [
+      {text:'Cancel',
+      onPress:() => console.log(''),
+      style:'cancel'
+    },
+      {text:'Go Home',
+      onPress:() =>  navigation.navigate('HomeScreen')
+    }
+    ]
+
+  
+  )
+}
 
 
 
@@ -65,7 +86,7 @@ const distances = parseInt(distan, 10)
 
         <View style={styles.btnView}>
           <TouchableOpacity style={styles.btn}
-          onPress={()=>alert('You Succesfully Scheduled your Delivery')}
+          onPress={()=> alertMessage()}
           >
        
             <Text style={styles.btnText}>Okay</Text>

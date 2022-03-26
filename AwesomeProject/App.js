@@ -16,6 +16,22 @@ import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
 // navigator.geolocation = require('@react-native-community/geolocation');
 // navigator.geolocation = require('react-native-geolocation-service');
 import CustomDrawer from "./CustomDrawer";
+import Amplify from 'aws-amplify';
+import awsconfig from './src/aws-exports';
+import { withAuthenticator } from 'aws-amplify-react-native'
+import { AmplifyTheme } from 'aws-amplify-react-native';
+
+
+const myButton = Object.assign({}, AmplifyTheme.button, { backgroundColor: 'black' });
+const MyTheme = Object.assign({}, AmplifyTheme, { button: myButton });
+
+
+Amplify.configure({
+  ...awsconfig,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 
 
@@ -87,7 +103,7 @@ const App = () => {
 
 }
 
-export default App
+export default withAuthenticator(App, false, [], null, MyTheme)
 
 
 

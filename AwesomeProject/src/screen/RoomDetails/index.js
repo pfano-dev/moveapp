@@ -6,6 +6,8 @@ import {
     ScrollView,
     TouchableOpacity,
     Modal,
+    Button,
+    Linking
   } from "react-native";
   import { useNavigation } from "@react-navigation/native";
   import React, { useState } from "react";
@@ -15,11 +17,19 @@ import {
   import AntDesig from "react-native-vector-icons/AntDesign";
   import AntDesi from "react-native-vector-icons/AntDesign";
   import { useRoute } from "@react-navigation/native";
-import style from "react-native-datepicker/style";
+  import { Constants } from 'expo';
+
 
   const myIcon = <Icon name="close" size={20} color="white" />;
   
   const  RoomDetails = () => {
+
+  const _pressCall=()=>{
+      const url='tel://0796495495'
+      Linking.openURL(url)
+    }
+
+
     const [mod, setMod] = useState(false);
     const categories = [
     require('../../assets/images/Room1.jpg'),
@@ -185,7 +195,7 @@ import style from "react-native-datepicker/style";
               </Text>
             </View>
             <View style={{ flexDirection: "row" ,marginTop:20,justifyContent:'space-between', width:'100%',paddingHorizontal:10}}>
-              <View
+              <TouchableOpacity
                 style={{
                   backgroundColor: "white",
                   borderRadius: 50,
@@ -195,9 +205,11 @@ import style from "react-native-datepicker/style";
                   alignItems: "center",
                
                 }}
+
+                onPress={()=>_pressCall()}
               >
                 <AntDesig name="phone" size={30} color="black" />
-              </View>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={{
                   backgroundColor: "white",
@@ -208,6 +220,8 @@ import style from "react-native-datepicker/style";
                   alignItems: "center",
             
                 }}
+              
+                onPress={()=> navigation.navigate('ChatList')}
               >
                 <AntDesi name="message1" size={30} color="black" />
               </TouchableOpacity>
