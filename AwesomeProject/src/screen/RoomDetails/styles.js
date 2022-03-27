@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   textD: {
     fontSize: 20,
     color: "#90a4ae",
+    fontFamily:'sans-serif-light'
   },
   textV: {
     justifyContent: "center",

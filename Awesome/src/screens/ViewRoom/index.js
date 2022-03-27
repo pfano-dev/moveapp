@@ -1,14 +1,20 @@
 import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
     FlatList,
     SafeAreaView,
-    ScrollView } from 'react-native'
-  import React from 'react'
+    ScrollView,
+    RefreshControl 
+  } from 'react-native'
+  import React,{useState , useEffect} from 'react'
   import styles from './styles'
   import Iconi from 'react-native-vector-icons/Feather';
   import hotels from '../../assets/data/hotel';
   import Icon from 'react-native-vector-icons/MaterialIcons';
   import Ionicons from 'react-native-vector-icons/Ionicons';
   import { useNavigation } from '@react-navigation/native';
+  import Amplify, { API, graphqlOperation } from 'aws-amplify'
+  import {Storage} from 'aws-amplify'
+  import { listProducts } from '../../graphql/queries'
+
 
   const {width} = Dimensions.get('screen');
   const cardWidth = width ;
@@ -17,9 +23,64 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   
   const ViewRoom = () => {
     
+
+
+
+
+
+
+
+
+
+  
+    const [todos, setTodos] = useState([])
+
+
+
+    const fetchTodos = async () => {
+    try {
+      //fetch the recipes from the server
+      const todoData = await API.graphql(graphqlOperation(listProducts));
+      let todos = todoData.data.listProducts.items
+
+      // for all todos get the pre-signURL and store in images field
+
+      todos = await Promise.all(todos.map(async (todo) =>{
+        const imageKey = await Storage.get(todo.image, { level: 'private' })
+        console.log(imageKey)
+        todo.image = imageKey;
+        return todo;
+      }));
+      setTodos(todos)
+    } catch (err) { console.log('error fetching todos ') + err }
+  }
+
+
+  useEffect(() => {
+    fetchTodos
+  }, [])
+  
+
+console.log(todos[1])
+
+
+
+const [refreshing, setRefreshing] = useState(false);
+  
+
+const onRefresh = async () => {
+  setRefreshing(true);
+  await fetchTodos();
+  setRefreshing(false);
+};
+
+ 
+
+
+
      const navigation = useNavigation();
     
-    const Card = ({hotel, index,}) => {
+    const Card = ({ty, index,}) => {
     
        return (
       
@@ -28,12 +89,12 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   <View style={styles.priceTag}>
               <Text
                 style={{color: "#eee", fontSize: 20, fontWeight: 'bold'}}>
-                R{hotel.price}
+                R{ty.price}
               </Text>
             </View>
   
-         <Image source={hotel.image} style={styles.cardImage} />
-  
+       
+         <Image source={{uri:ty.image}} style={styles.cardImage}/> 
   
   
          <View style={styles.cardDetails}>
@@ -41,15 +102,15 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View>
                   <Text style={{fontWeight: 'bold', fontSize: 17}}>
-                    {hotel.name}
+                    {ty.roomName}
                   </Text>
                   <Text style={{color:'grey', fontSize: 12}}>
-                    {hotel.location}
+                  {ty.province} {ty.location} 
                   </Text>
                 </View>
                 <Icon name="bookmark-border" size={26} color={"black"} />
               </View>
-              <Text style={{fontSize: 11, color:'black'}}>{hotel.type} </Text>
+              <Text style={{fontSize: 11, color:'black'}}>{ty.roomType} </Text>
               <View
                 style={{
                   flexDirection: 'row',
@@ -100,12 +161,16 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
      
 
          
-            <Animated.FlatList
-              data={hotels}
-              renderItem={({item, index}) => <Card hotel={item} index={index} />}
+            <FlatList
+              data={todos}
+              renderItem={({item, index}) => <Card  ty={item} index={index} />}
              
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
             />
-          
+
+
        
       </View>
     )

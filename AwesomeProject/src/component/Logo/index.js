@@ -10,8 +10,8 @@ const Logo = () => {
     <View style={styles.container}>
    
      <Text style={styles.TextLogo}>M</Text>
-     <Text style={styles.text}>Move it</Text>
-
+     <Text style={styles.text}> Move it</Text>
+<Text style={{marginTop:25,fontSize:18,color:'#bdbdbd',fontFamily:'serif'}}>You’re going to like what we do for you!</Text>
      
     </View>
   )

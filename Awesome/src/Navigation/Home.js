@@ -10,11 +10,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Stack = createNativeStackNavigator();
 
 const myIcon = <Icon name="car-repair" size={30} color="black" />;
 const myIconi = <Iconi name="menu" size={30} color="black" />;
+const myIconm = <AntDesign name="message1" size={30} color="black" />;
+
+
 
 const Home = () => {
   return (
@@ -38,7 +42,7 @@ options={({navigation})=>({
 <Stack.Screen name="AddVehicle" component={AddVehicle}
 options={{
   headerShadowVisible: false,
-  title:"Regisger vehicle",
+  title:"Register vehicle",
   headerTitleAlign:'center',
 }}/>
 
@@ -52,7 +56,7 @@ options={({navigation})=>({
   headerTitle:props=><Text  style={{fontWeight:"bold",fontSize:18}}> Hello, Muleya</Text>,
   headerRight:()=>
   <TouchableOpacity  style={{height:35,width:50,alignItems:'center'}}>
-<Text style={{fontWeight:"bold"}}>{myIcon}</Text>
+<Text style={{fontWeight:"bold"}}>{myIconm}</Text>
   </TouchableOpacity>,
 
 })}

@@ -8,7 +8,7 @@ const PlaceRow = ({ data }) => {
     <View style={styles.row}>
       <View style={styles.iconContainer}>
       {data.description === 'current location'
-          ? <Entypo name='location-pin' siz={20} color={'red'} /> 
+          ? <Entypo name='location-pin' siz={25} color={'#00acc1'} /> 
           :<Entypo name='home' siz={20} color={'white'} />
          } 
       </View>

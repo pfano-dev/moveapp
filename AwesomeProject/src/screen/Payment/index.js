@@ -40,7 +40,6 @@ const dates =types.date
       const user = await Auth.currentAuthenticatedUser();
 
       const input = {
-        id:user.attributes.sub,
         name:user.username,
         destinationLat:destLat,
         destinationLong: destLon,
@@ -78,7 +77,6 @@ const dates =types.date
       const user = await Auth.currentAuthenticatedUser();
 
       const input = {
-        id:user.attributes.sub,
         date:dates,
         name:user.username,
         destinationLat:destLat,
@@ -88,7 +86,7 @@ const dates =types.date
         destinations:destination ,
         origins: origin,
         price:prices, 
-        type:car
+        type:car 
       }
 
       const response = await API.graphql(

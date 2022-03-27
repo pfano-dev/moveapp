@@ -6,7 +6,7 @@ height:230,
 width:'100%',
 alignItems:"center",
 backgroundColor:"white",
-justifyContent:"center"
+
 },
     TextLogo:{
 color:"#74797B",
@@ -20,7 +20,8 @@ fontWeight:"bold"
         fontSize:30,
         fontWeight:"bold",
         position:'absolute',
-        bottom:45
+        bottom:94,
+        
 
     }
 });

@@ -9,7 +9,7 @@ const GOOGLE_MAPS_APIKEY = "AIzaSyAGXSUtb0RGrt4V55SXW5ZV9n5Z4xuVd7w";
 const FinalMap = ({ origin, destination }) => { 
 
   const mapRef = useRef()
-  console.log(destination)
+
 
   const [state, setState] = useState({
     time: 0,
@@ -44,7 +44,7 @@ const minutes =  parseInt((time%times)*60, 10)
     <View style={{alignItems:'center'}}>
     <MapView
     ref={mapRef}
-    style={{height:450, width:'100%'}}
+    style={{height:510, width:'100%'}}
     initialRegion={{
       latitude: -26.270760,
       longitude: 28.112268,

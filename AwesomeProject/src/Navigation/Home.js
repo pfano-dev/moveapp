@@ -17,9 +17,9 @@ import Inbox from '../screen/ChatScreen/Inbox';
 import Payment from '../screen/Payment';
 import Now from '../screen/FinalScreen/Now';
 import Schedule from '../screen/FinalScreen/Schedule';
-import TripDetails from '../screen/DrawerScreen/YourTrip';
+import TripInfo from '../screen/DrawerScreen/TripInfo';
 import { Auth , graphqlOperation } from 'aws-amplify';
-import { API } from 'aws-amplify';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -198,7 +198,7 @@ options={{
 }}
 />
 
-<Stack.Screen name="TripDetails" component={TripDetails}
+<Stack.Screen name="TripInfo" component={TripInfo}
 
 options={{
   headerStyle:{

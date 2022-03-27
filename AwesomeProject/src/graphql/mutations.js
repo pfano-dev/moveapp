@@ -130,6 +130,63 @@ export const deleteSchedule = /* GraphQL */ `
     }
   }
 `;
+export const createVehicle = /* GraphQL */ `
+  mutation CreateVehicle(
+    $input: CreateVehicleInput!
+    $condition: ModelVehicleConditionInput
+  ) {
+    createVehicle(input: $input, condition: $condition) {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateVehicle = /* GraphQL */ `
+  mutation UpdateVehicle(
+    $input: UpdateVehicleInput!
+    $condition: ModelVehicleConditionInput
+  ) {
+    updateVehicle(input: $input, condition: $condition) {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteVehicle = /* GraphQL */ `
+  mutation DeleteVehicle(
+    $input: DeleteVehicleInput!
+    $condition: ModelVehicleConditionInput
+  ) {
+    deleteVehicle(input: $input, condition: $condition) {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createProduct = /* GraphQL */ `
   mutation CreateProduct(
     $input: CreateProductInput!
@@ -137,14 +194,13 @@ export const createProduct = /* GraphQL */ `
   ) {
     createProduct(input: $input, condition: $condition) {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt
@@ -158,14 +214,13 @@ export const updateProduct = /* GraphQL */ `
   ) {
     updateProduct(input: $input, condition: $condition) {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt
@@ -179,14 +234,13 @@ export const deleteProduct = /* GraphQL */ `
   ) {
     deleteProduct(input: $input, condition: $condition) {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt

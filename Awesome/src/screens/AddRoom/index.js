@@ -3,12 +3,89 @@ import { View,TouchableOpacity, KeyboardAvoidingView, TextInput, StyleSheet, Tex
        TouchableWithoutFeedback, Keyboard, ScrollView, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as ImagePicker from 'expo-image-picker';
-
+import uuid from 'react-native-uuid';
+import { Auth , API , graphqlOperation } from 'aws-amplify';
+ import { createProduct } from '../../graphql/mutations'
+ import {Storage} from 'aws-amplify';
 
 
 const myIcon = <Icon name="add-photo-alternate" size={30} color="black" />;
 
 const AddRoom = () => {
+
+
+
+  const [formState, setFormState] = useState({
+ 
+  yourName:"",
+  surname: "",
+  roomName:"",
+  roomType:"",
+  location: "",
+  province: "",
+  price: "",
+  image:''
+   })
+
+
+   const setTask = (key, value) => {
+    setFormState({ ...formState, [key]: value })
+}
+
+
+const onSubmit =()=>{
+  console.log(formState)
+}
+
+
+const [rooms, setRooms] = useState([])
+    
+   
+const addRoom = async () => {
+
+  try {
+    console.log('yes')
+
+    const photo = await fetch(image)
+    const photoBlob = await photo.blob();
+    await Storage.put(formState.image, photoBlob, {
+      level: 'private',
+      contentType: 'image/jpg'
+    })
+    
+      if (!formState.surname || !formState.roomName) return
+      const room = { ...formState }
+      setRooms([...rooms, room])
+      setFormState({ 
+      yourName:"",
+      surname: "",
+      roomName:"",
+      roomType:"",
+      location: "",
+      province: "",
+      price: "",
+      image:''
+
+
+    })
+      await API.graphql(graphqlOperation(createProduct, { input: room }))
+
+console.log('yes')
+
+  } catch (err) {
+      console.log('error creating actor:', err)
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
   const [image, setImage] = useState(null);
 
@@ -25,6 +102,9 @@ const AddRoom = () => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      const filename = uuid.v4() + '_todoPhoto.jpg'
+      console.log('filename: \n');
+      setTask('image', filename)
     }
   };
   
@@ -36,16 +116,33 @@ const AddRoom = () => {
 <ScrollView>
         <View style={styles.inner}>
     <View style={styles.innerView}>
-         <TextInput placeholder="Your Name" style={[styles.textInput,{width:170, textAlign:'center',paddingLeft:0,}]} />
-          <TextInput placeholder="surname" style={[styles.textInput,{width:170,textAlign:'center',paddingLeft:0,}]} />
+         <TextInput placeholder="Your Name" style={[styles.textInput,{width:170, textAlign:'center',paddingLeft:0,}]} 
+             value={formState.yourName} onChangeText={text => setTask("yourName",text)}
+         />
+     
+          <TextInput placeholder="surname" style={[styles.textInput,{width:170,textAlign:'center',paddingLeft:0,}]} 
+             value={formState.surname} onChangeText={text => setTask("surname",text)}
+          />
 
        </View>
+
+  
      
-          <TextInput placeholder="Rooms name" style={styles.textInput}  />
-          <TextInput placeholder="Room type" style={styles.textInput} />
-          <TextInput placeholder="Room Location" style={styles.textInput} />
-          <TextInput placeholder="Province" style={styles.textInput} />
-          <TextInput placeholder="Price" style={styles.textInput} />
+          <TextInput placeholder="Rooms name" style={styles.textInput} 
+           value={formState.roomName} onChangeText={text => setTask("roomName",text)}
+          />
+          <TextInput placeholder="Room type" style={styles.textInput} 
+           value={formState.roomType} onChangeText={text => setTask("roomType",text)}
+          />
+          <TextInput placeholder="Room Location" style={styles.textInput}
+           value={formState.location} onChangeText={text => setTask("location",text)}
+          />
+          <TextInput placeholder="Province" style={styles.textInput}
+           value={formState.province} onChangeText={text => setTask("province",text)}
+          />
+          <TextInput placeholder="Price" style={styles.textInput} 
+           value={formState.price} onChangeText={text => setTask("price",text)}
+          />
 
 
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width:'100%' }}>
@@ -59,8 +156,10 @@ const AddRoom = () => {
     </View>
 
 
-          <TouchableOpacity style={styles.btnContainer}>
-         <Text style={{color:'white', fontWeight:'bold',fontSize:30}}>submit</Text>
+          <TouchableOpacity style={styles.btnContainer}
+          onPress={()=>addRoom()}
+          >
+         <Text style={{color:'white', fontWeight:'bold',fontSize:30}}>post room</Text>
           </TouchableOpacity>
         </View>
         </ScrollView>

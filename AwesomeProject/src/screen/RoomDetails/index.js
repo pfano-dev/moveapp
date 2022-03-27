@@ -43,21 +43,27 @@ import {
     const data = route.params;
     const dat = data.image;
 
+console.log(dat)
+
+   
+
     const navigation = useNavigation();
     return (
       <View>
         <View style={styles.container}>
           <ImageBackground
-            source={dat}
+            source={{uri:dat}}
             style={styles.image}
           >
             <Text style={styles.text}>Rent</Text>
-            <Text style={styles.texto}>R70000/pm</Text>
+            <Text style={styles.texto}>R{data.price}/pm</Text>
           </ImageBackground>
         </View>
         <View style={styles.textV}>
           <Text style={styles.textD}>
-         {data.details}
+     {data.roomName} {data.roomType}room owned by {data.surname} {data.yourName} it is located at {data.location} {data.province} province,
+       Enjoy our elegant 40 m² rooms, designed in warm beige tones and tailored to the needs of client alike. 
+ 
           </Text>
         </View>
         <View>
@@ -188,7 +194,7 @@ import {
   
             <View>
               <Text style={{ fontSize: 20, fontWeight: "bold",textAlign:'center' }}>
-                Muleya Pfano
+              {data.surname} {data.yourName}
               </Text>
               <Text style={{ fontSize: 18, color: "#455a64",textAlign:'center'  }}>
              owner

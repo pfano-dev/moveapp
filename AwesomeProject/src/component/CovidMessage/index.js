@@ -20,7 +20,7 @@ const CovidMessage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Covid-19 regulations must be  followed when using our service</Text>
+      <Text style={styles.text}>Covid-19 regulations must be  followed when using our service!!</Text>
       <View style={styles.inContainer}>
 
 <View style={styles.deliveryView}>

@@ -105,18 +105,64 @@ export const listSchedules = /* GraphQL */ `
     }
   }
 `;
+export const getVehicle = /* GraphQL */ `
+  query GetVehicle($id: ID!) {
+    getVehicle(id: $id) {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listVehicles = /* GraphQL */ `
+  query ListVehicles(
+    $id: ID
+    $filter: ModelVehicleFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listVehicles(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        id
+        surname
+        yourName
+        idNumber
+        vehicleType
+        RegistrationNumber
+        vehicleModel
+        province
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getProduct = /* GraphQL */ `
   query GetProduct($id: ID!) {
     getProduct(id: $id) {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt
@@ -140,14 +186,13 @@ export const listProducts = /* GraphQL */ `
     ) {
       items {
         id
-        name
+        yourName
         surname
         roomName
+        roomType
         location
         province
         price
-        userId
-        userName
         image
         createdAt
         updatedAt

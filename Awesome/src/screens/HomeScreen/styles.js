@@ -5,12 +5,12 @@ const styles = StyleSheet.create({
     header:{
 
         fontSize:30,
-        marginVertical:10,
+        marginVertical:30,
         paddingHorizontal:10,
     },
     headerView:{
-height:200,
-justifyContent:'center',
+height:230,
+justifyContent:'flex-end',
     },
     cardView:{
 height:220,

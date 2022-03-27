@@ -3,7 +3,6 @@ import React,{useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { listNows } from '../../graphql/queries'
-import { listSchedules } from '../../graphql/queries'
 import { ScrollView } from 'react-native-gesture-handler';
 
 const YourTrip  = () => {
@@ -111,8 +110,8 @@ const ScheduleDis = ({typ}) => {
    
     return (
      <TouchableOpacity
-
-     >
+     onPress={()=>navigation.navigate('TripInfo')}
+     >  
          <View style={styles.container}>
              <View style={styles.inner}>
 
@@ -135,7 +134,7 @@ const ScheduleDis = ({typ}) => {
 
 </View>
          </View>
-   
+
   </TouchableOpacity>
     
    );
@@ -154,16 +153,12 @@ const ScheduleDis = ({typ}) => {
 
 
 {oders.map((row) => (
-
-<TouchableOpacity
-key={row?.id}>  
-
      <List
           type={row}
           key={row?.id}
        
         />
-         </TouchableOpacity>
+    
       ))}
 
 
@@ -171,14 +166,14 @@ key={row?.id}>
 
 {schedule.map((row) => (
 
-<TouchableOpacity
-key={row?.id}>  
+
+
      <ScheduleDis
           typ={row}
           key={row?.id}
        
         />
-         </TouchableOpacity>
+        
       ))}
 
 

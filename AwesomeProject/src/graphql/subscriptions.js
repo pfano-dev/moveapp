@@ -112,18 +112,65 @@ export const onDeleteSchedule = /* GraphQL */ `
     }
   }
 `;
+export const onCreateVehicle = /* GraphQL */ `
+  subscription OnCreateVehicle {
+    onCreateVehicle {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateVehicle = /* GraphQL */ `
+  subscription OnUpdateVehicle {
+    onUpdateVehicle {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteVehicle = /* GraphQL */ `
+  subscription OnDeleteVehicle {
+    onDeleteVehicle {
+      id
+      surname
+      yourName
+      idNumber
+      vehicleType
+      RegistrationNumber
+      vehicleModel
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateProduct = /* GraphQL */ `
   subscription OnCreateProduct {
     onCreateProduct {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt
@@ -134,14 +181,13 @@ export const onUpdateProduct = /* GraphQL */ `
   subscription OnUpdateProduct {
     onUpdateProduct {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt
@@ -152,14 +198,13 @@ export const onDeleteProduct = /* GraphQL */ `
   subscription OnDeleteProduct {
     onDeleteProduct {
       id
-      name
+      yourName
       surname
       roomName
+      roomType
       location
       province
       price
-      userId
-      userName
       image
       createdAt
       updatedAt

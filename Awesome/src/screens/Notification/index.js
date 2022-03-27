@@ -1,4 +1,4 @@
-import { View, Text,ImageBackground,TouchableOpacity } from 'react-native'
+import { View, Text,ImageBackground,TouchableOpacity, Alert,Image } from 'react-native'
 import React,{useState , useEffect} from 'react'
 import styles from './styles'
 import Iconi from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,8 +6,70 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { listNows } from '../../graphql/queries'
+// import {Storage} from 'aws-amplify'
+// import { listProducts } from '../../graphql/queries'
 
 const Notification = () => {
+
+
+  const [show, setShow] = useState(true)
+
+
+  
+//   const [todos, setTodos] = useState([])
+
+
+
+//     const fetchTodos = async () => {
+//     try {
+//       //fetch the recipes from the server
+//       const todoData = await API.graphql(graphqlOperation(listProducts));
+//       let todos = todoData.data.listProducts.items
+
+//       // for all todos get the pre-signURL and store in images field
+
+//       todos = await Promise.all(todos.map(async (todo) =>{
+//         const imageKey = await Storage.get(todo.image, { level: 'private' })
+//         console.log(imageKey)
+//         todo.image = imageKey;
+//         return todo;
+//       }));
+//       setTodos(todos)
+//     } catch (err) { console.log('error fetching todos ') + err }
+//   }
+
+
+//   useEffect(() => {
+//     fetchTodos
+//   }, [])
+  
+
+// console.log(todos[1])
+
+
+
+
+
+  const  alertMessage =()=>{
+
+    Alert.alert(
+      'Decline',
+  
+      'Decline Delivery',
+  
+      [
+        {text:'NO',
+        onPress:() => console.log(''),
+        style:'cancel'
+      },
+        {text:'YES',
+        onPress:() => setShow(false)
+      }
+      ]
+  
+    
+    )
+  }
 
   const navigation = useNavigation();
 
@@ -27,6 +89,9 @@ const Notification = () => {
 useEffect(() => {
   fetchRooms();
 }, [])
+
+
+
 
 
 const List = ({type}) => {
@@ -57,17 +122,20 @@ const List = ({type}) => {
 <Text style={styles.name}>To : {type.destinations}</Text>
 
 </View>
-<View style={{flexDirection:'row', justifyContent:'space-between',width:'100%',padding:10}}>
+<View style={{flexDirection:'row', justifyContent:'space-between',width:'100%',padding:10,paddingHorizontal:20}}>
 
-<TouchableOpacity>
-<Text style={{fontSize:25 ,color:'red'}}>Decline</Text>
+<TouchableOpacity
+onPress={()=>alertMessage()}
+>
+
+<Text style={{fontSize:20 ,color:'red'}}>Decline</Text>
 </TouchableOpacity>
 
 <TouchableOpacity
 onPress={()=> navigation.navigate('DriverMap',{type})}
 >
 
-<Text style={{fontSize:25,color:'green'}} >Accept</Text>
+<Text style={{fontSize:20,color:'green'}} >Accept</Text>
 </TouchableOpacity>
   
 
@@ -92,8 +160,14 @@ onPress={()=> navigation.navigate('DriverMap',{type})}
 
 
   return (
-    <View>
-   
+  
+  <View>
+
+
+
+  
+{show?
+<View>
 {oders.map((row) => (
 
 <TouchableOpacity
@@ -106,6 +180,11 @@ key={row?.id}>
         />
          </TouchableOpacity>
       ))}
+      </View>
+:null
+}
+
+ 
 
 
     </View>

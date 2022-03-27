@@ -13,13 +13,14 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{padding:15, backgroundColor:'white',height:'100%'}}>
+    <View style={{paddingHorizontal:15, backgroundColor:'white',height:'100%'}}>
 
 
 
         <View style={styles.headerView}>
-        <Text style={[styles.header,{color:'gray'}]}>Who you are?</Text>  
-        <Text style={styles.header}>You can select Driver or  landlord  to register</Text> 
+        <Text style={[styles.header,{color:'gray',marginVertical:0}]}>Who you are?</Text>  
+        <Text style={[styles.header,{color:'gray',marginVertical:0}]}>Driver or Landlord!!!</Text> 
+        <Text style={[styles.header,{marginVertical:30}]}>You can select Driver or  landlord  to register</Text> 
         </View>
         <TouchableOpacity
          onPress={()=>navigation.navigate("Notification")}
