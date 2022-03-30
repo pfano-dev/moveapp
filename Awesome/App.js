@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import { View, Text, PermissionsAndroid, Platform} from 'react-native'
 import React,{useState, useEffect} from 'react';
 import Home from './src/Navigation/Home';
+import YouTrip from './src/screens/youTrip'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -50,9 +51,9 @@ const App = () => {
       }}
       
     />
-    {/* <Drawer.Screen name="YourTrip" component={YourTrip} />
-    <Drawer.Screen name="History" component={History} />
-    <Drawer.Screen name="Setting" component={Setting} /> */}
+    <Drawer.Screen name="YouTrip" component={YouTrip} />
+    {/* <Drawer.Screen name="History" component={History} />
+    <Drawer.Screen name="Setting" component={Setting} /> */} 
 
   </Drawer.Navigator> 
   </NavigationContainer>

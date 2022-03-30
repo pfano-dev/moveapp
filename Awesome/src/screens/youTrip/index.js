@@ -6,7 +6,7 @@ import { listNows } from '../../graphql/queries'
 import { listSchedules } from '../../graphql/queries'
 import { ScrollView } from 'react-native-gesture-handler';
 
-const YourTrip  = () => {
+const YouTrip  = () => {
   
   const navigation = useNavigation();
 
@@ -172,10 +172,6 @@ console.log(date_in_desired_format); // 2021-02-23
 
 {schedule.map((row) => (
 
-
-
-
-
      <ScheduleDis
           typ={row}
           key={row?.id}
@@ -217,7 +213,7 @@ console.log(date_in_desired_format); // 2021-02-23
   )
 }
 
-export default YourTrip 
+export default YouTrip 
 
 const styles = StyleSheet.create({
 

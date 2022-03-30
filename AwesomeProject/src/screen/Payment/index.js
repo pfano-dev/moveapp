@@ -15,10 +15,10 @@ const Payment = ({navigation}) => {
   const route = useRoute();
 
   const data = route.params;
-console.log(types)
+
   const types = data.data;
   const typ=types.type
-
+  console.log(types)
 const dates =types.date
 
   const destLat =types.originLoc.latitude

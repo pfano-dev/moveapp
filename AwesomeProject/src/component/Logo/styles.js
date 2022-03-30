@@ -9,14 +9,14 @@ backgroundColor:"white",
 
 },
     TextLogo:{
-color:"#74797B",
+color:"black",
 fontSize:120,
 fontWeight:"bold"
 
     },
     text:{
 
-        color:"#74797B",
+        color:"black",
         fontSize:30,
         fontWeight:"bold",
         position:'absolute',

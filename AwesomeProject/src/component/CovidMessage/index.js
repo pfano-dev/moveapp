@@ -42,7 +42,7 @@ style={styles.deliveryCard} >
       
           </View>
           <View style={styles.go}>
-      <Text style={{fontSize:18,fontWeight:'bold',color:'black'}}>Now</Text>
+      <Text style={{fontSize:18,fontWeight:'bold',color:'#eceff1'}}>Now</Text>
       <Text>{myIconi}</Text>
           </View>
           
@@ -64,7 +64,7 @@ style={styles.deliveryCard} >
         
     <ImageBackground source={require('../../assets/images/calender.jpg')} style={styles.image}   imageStyle={{borderRadius: 20}}>
     
-   <View style={styles.deliveryCards}>
+   <View style={[styles.deliveryCards,{backgroundColor:'rgba(00,00,00,0.7)'}]}>
 
 
 <View style={styles.Schedule}>
@@ -74,7 +74,7 @@ style={styles.deliveryCard} >
     </View>
     
 <View style={styles.go}>
-<Text style={{fontSize:18,fontWeight:'bold',color:'black'}}>Schedule</Text>
+<Text style={{fontSize:18,fontWeight:'bold',color:'#eceff1'}}>Schedule</Text>
 <Text>{myIconi}</Text>
     </View>
     </View>

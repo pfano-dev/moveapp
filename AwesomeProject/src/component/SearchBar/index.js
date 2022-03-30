@@ -77,74 +77,9 @@ const SearchBar = () => {
 
 
 
-
-
-
-
-  const Car = ({hotel, index}) => {
- 
-    
-     return (
-      <TouchableOpacity
-      onPress={() => navigation.navigate('RoomDetails', hotel)}
-      >
-   <Animated.View style={styles.card}>
-<View style={styles.priceTag}>
-            <Text
-              style={{color: "#eee", fontSize: 20, fontWeight: 'bold'}}>
-              R{hotel.price}
-            </Text>
-          </View>
-
-       <Image source={hotel.image} style={styles.cardImage} />
-
-
-
-       <View style={styles.cardDetails}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <View>
-                <Text style={{fontWeight: 'bold', fontSize: 17}}>
-                  {hotel.name}
-                </Text>
-                <Text style={{color:'grey', fontSize: 12}}>
-                  {hotel.location}
-                </Text>
-              </View>
-              <Icon name="bookmark-border" size={26} color={"black"} />
-        
-            </View>
-            <Text style={{fontSize: 11, color:'black'}}>{hotel.type} </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginTop: 10,
-              }}>
-              <View style={{flexDirection: 'row'}}>
-                <Icon name="star" size={15} color='orange' />
-                <Icon name="star" size={15} color='orange' />
-                <Icon name="star" size={15} color='orange' />
-                <Icon name="star" size={15} color='orange' />
-                <Icon name="star" size={15} color='grey' />
-              </View>
-             
-              <Text style={{fontSize: 10, color:'grey'}}>365 reviews</Text>
-            </View>
-          </View>
-   </Animated.View>
-        
-   </TouchableOpacity>
-    );
-  };
-
-
-
-
   const TopHotelCard = ({hotel}) => {
     return (
       <TouchableOpacity
-      onPress={()=> navigation.navigate('RoomDetails', hotel)}
       >
       <View style={styles.topHotelCard}>
         <View
@@ -171,60 +106,6 @@ const SearchBar = () => {
       </TouchableOpacity>
     );
   };
-
-const [dataState,setData] = useState(hotels)
-
-
-const searchName =(input)=>{
-
-  let data = dataState
-  let searchData = data.filter((item)=>{
-    return item.location.toLowerCase().includes(input.toLowerCase())
-  });
-
-{ input?
-setData(searchData):
-setData(hotels)
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -253,7 +134,7 @@ try {
 
 
 useEffect(() => {
-fetchTodos
+fetchTodos()
 }, [])
 
 
@@ -270,6 +151,26 @@ await fetchTodos();
 setRefreshing(false);
 };
 
+
+
+const search = todos;
+console.log("this is search.........................",search)
+
+
+
+const searchName =(input)=>{
+
+let sData = search 
+  let data = todos
+  let searchData = data.filter((item)=>{
+    return item.province.toLowerCase().includes(input.toLowerCase())
+  });
+
+{ input?
+setTodos(searchData):
+setTodos(sData)
+}
+}
 
 
 
@@ -336,48 +237,6 @@ onPress={() => navigation.navigate('RoomDetails',ty)}
 
 );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

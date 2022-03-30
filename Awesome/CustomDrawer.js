@@ -1,9 +1,39 @@
 import React from "react";
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Pressable, Image,Alert } from "react-native";
 import {DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
-
+import {Auth} from 'aws-amplify';
 
 const CustomDrawer = (props) => {
+
+
+
+  const  alertMessage =()=>{
+
+    Alert.alert(
+      'LOGOUT',
+  
+      'Are you sure you want to LOGOUT',
+  
+      [
+        {text:'Cancel',
+        onPress:() => console.log(''),
+        style:'cancel'
+      },
+        {text:'yes',
+        onPress:() =>  Auth.signOut()
+      }
+      ]
+  
+    
+    )
+  }
+  
+
+
+
+
+
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={{backgroundColor: "#37474f", padding: 15, height:200}}>
@@ -56,10 +86,14 @@ const CustomDrawer = (props) => {
 
       <DrawerItemList {...props} />
 
-      {/* Make money */}
-      {/* <Pressable onPress={() => { Auth.signOut() }}>
-        <Text style={{padding: 5, paddingLeft: 20}}>Logout</Text>
-      </Pressable> */}
+     
+      
+      <Pressable 
+      onPress={() => { alertMessage() }}
+      style={{paddingVertical:50}}  >
+        <Text style={{padding: 5, paddingLeft: 20, color:'red'}}>Logout</Text>
+      </Pressable>
+
     </DrawerContentScrollView>
   );
 };

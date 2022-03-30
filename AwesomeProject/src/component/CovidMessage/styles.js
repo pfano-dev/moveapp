@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 container:{
 height:"100%",
 width:'100%',
-backgroundColor:'#bdbdbdaa',
+backgroundColor:'#263238',
 alignItems:"center",
 borderTopLeftRadius:35,
 borderTopRightRadius:35,
@@ -22,7 +22,7 @@ inContainer:{
 
 
     text:{
-        color:"black",
+        color:"white",
         fontWeight:"600",
       padding:15,
       textAlign:'center',
@@ -49,10 +49,10 @@ borderRadius:20
 
     },
     deliveryCards:{
-        backgroundColor:'#74797Baa',
+        backgroundColor:'rgba(00,00,00,0.5)',
         width:"100%",
         height:200,
-        borderRadius:20
+        borderRadius:22
         
             },
         
@@ -87,10 +87,10 @@ borderRadius:20
     },
 
     roomCards:{
-        backgroundColor:'#74797Baa',
+        backgroundColor:'rgba(00,00,00,0.5)',
         width:"100%",
         height:170,
-        borderRadius:20
+        borderRadius:22
 
     },
 

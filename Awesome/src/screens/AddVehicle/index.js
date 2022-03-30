@@ -34,7 +34,7 @@ const AddVehicle = () => {
     
     const [cars, setCars] = useState([])
     
-   
+   const [errorMessage, setErrorMessage]=useState("");
 
 
      const addCar = async () => {
@@ -42,7 +42,35 @@ const AddVehicle = () => {
       try {
         const user = await Auth.currentAuthenticatedUser();
 
-          if (!formState.surname || !formState.RegistrationNumber) return
+          if(!formState.surname){
+            setErrorMessage("Surname cannot be empty");
+            return;
+          }
+          if(!formState.RegistrationNumber){
+            setErrorMessage("Registration Number cannot be empty");
+            return;
+          }
+          if(!formState.yourName){
+            setErrorMessage("Name cannot be empty");
+            return;
+          }
+          if(!formState.idNumber){
+            setErrorMessage("ID Number cannot be empty");
+            return;
+          }
+          if(!formState.province){
+            setErrorMessage("Province cannot be empty");
+            return;
+          }
+          if(!formState.vehicleModel){
+            setErrorMessage("Vehicle model cannot be empty");
+            return;
+          }
+          if(!formState.vehicleType){
+            setErrorMessage("Vehicle type cannot be empty");
+            return;
+          }
+          
           const car = { ...formState }
           setCars([...cars, car])
           setFormState({ 
@@ -98,7 +126,9 @@ const AddVehicle = () => {
           <TextInput placeholder="Provice" style={styles.textInput}
             value={formState.province} onChangeText={text => setTask("province",text)}
           />
-
+          {
+              !errorMessage?<Text>{null}</Text> : <Text style={{color: 'red', fontSize: 20, fontFamily:"serif", textAlign:"center"}}>{errorMessage}</Text>
+          }
           <TouchableOpacity style={styles.btnContainer}
           onPress={()=>addCar()}
           >

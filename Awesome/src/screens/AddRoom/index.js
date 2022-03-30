@@ -5,15 +5,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as ImagePicker from 'expo-image-picker';
 import uuid from 'react-native-uuid';
 import { Auth , API , graphqlOperation } from 'aws-amplify';
- import { createProduct } from '../../graphql/mutations'
+ import { createProduct } from '../../graphql/mutations';
+ 
  import {Storage} from 'aws-amplify';
 
 
 const myIcon = <Icon name="add-photo-alternate" size={30} color="black" />;
 
 const AddRoom = () => {
-
-
+  const [rooms, setRooms] = useState([])
+  const [errorMessage, setErrorMessage] = useState("");
+  const [image, setImage] = useState(null);
 
   const [formState, setFormState] = useState({
  
@@ -37,23 +39,46 @@ const onSubmit =()=>{
   console.log(formState)
 }
 
-
-const [rooms, setRooms] = useState([])
-    
-   
+//Add rooms function
 const addRoom = async () => {
 
   try {
-    console.log('yes')
-
+    if(!formState.yourName){
+      setErrorMessage("Name cannot be empty");
+      return;
+    }
+    if(!formState.surname){
+      setErrorMessage("Surname cannot be empty");
+      return;
+    }
+    if(!formState.roomName){
+      setErrorMessage("Room name cannot be empty");
+      return;
+    }
+    if(!formState.roomType){
+      setErrorMessage("Room type cannot be empty");
+      return;
+    }
+    if(!formState.location){
+      setErrorMessage("Location cannot be empty");
+      return;
+    }
+    if(!formState.province){
+      setErrorMessage("Province model cannot be empty");
+      return;
+    }
+    if(!formState.price){
+      setErrorMessage("Price type cannot be empty");
+      return;
+    }
+    if(!formState.image){
+      setErrorMessage("Please enter an image");
+      return;
+    }
     const photo = await fetch(image)
     const photoBlob = await photo.blob();
-    await Storage.put(formState.image, photoBlob, {
-      level: 'private',
-      contentType: 'image/jpg'
-    })
     
-      if (!formState.surname || !formState.roomName) return
+
       const room = { ...formState }
       setRooms([...rooms, room])
       setFormState({ 
@@ -66,28 +91,17 @@ const addRoom = async () => {
       price: "",
       image:''
 
-
     })
       await API.graphql(graphqlOperation(createProduct, { input: room }))
-
-console.log('yes')
-
+    await Storage.put(formState.image, photoBlob, {
+      level: 'private',
+      contentType: 'image/jpg'
+    })
+  
   } catch (err) {
       console.log('error creating actor:', err)
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-  const [image, setImage] = useState(null);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -154,8 +168,9 @@ console.log('yes')
 
        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, borderRadius:10, marginVertical:5 }} />}
     </View>
-
-
+      {
+              !errorMessage?<Text>{null}</Text> : <Text style={{color: 'red', fontSize: 20, fontFamily:"serif", textAlign:"center"}}>{errorMessage}</Text>
+          }
           <TouchableOpacity style={styles.btnContainer}
           onPress={()=>addRoom()}
           >

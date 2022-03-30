@@ -1,8 +1,12 @@
-import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
+import { View, Text,TextInput,TouchableOpacity,Image,
+    Animated, 
+    Dimensions,
     FlatList,
     SafeAreaView,
     ScrollView,
-    RefreshControl 
+    RefreshControl, 
+    Pressable,
+    Alert
   } from 'react-native'
   import React,{useState , useEffect} from 'react'
   import styles from './styles'
@@ -14,7 +18,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
   import Amplify, { API, graphqlOperation } from 'aws-amplify'
   import {Storage} from 'aws-amplify'
   import { listProducts } from '../../graphql/queries'
-
+  import { deleteProduct } from "../../graphql/mutations";
 
   const {width} = Dimensions.get('screen');
   const cardWidth = width ;
@@ -25,16 +29,44 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
     
 
 
-
-
-
-
-
-
-
   
     const [todos, setTodos] = useState([])
 
+
+
+    // async function onDeleteTodo({ id })
+
+    const onDeleteTodo = async ({ id }) =>  {
+      try {
+        const newTodoArray = todos.filter((todo) => todo.id !== id);
+        setTodos(newTodoArray);
+        await API.graphql(graphqlOperation(deleteProduct, { input: { id } }));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  
+
+    const  alertMessage =(ty)=>{
+
+      Alert.alert(
+        'DELETE',
+    
+        'are you sure you want to DELETE a room',
+    
+        [
+          {text:'NO',
+          onPress:() => console.log(''),
+          style:'cancel'
+        },
+          {text:'YES',
+          onPress:() => onDeleteTodo(ty)
+        }
+        ]
+    
+      
+      )
+    }
 
 
     const fetchTodos = async () => {
@@ -57,7 +89,7 @@ import { View, Text,TextInput,TouchableOpacity,Image,Animated, Dimensions,
 
 
   useEffect(() => {
-    fetchTodos
+    fetchTodos()
   }, [])
   
 
@@ -83,8 +115,17 @@ const onRefresh = async () => {
     const Card = ({ty, index,}) => {
     
        return (
+      <Pressable
       
-     <Animated.View style={styles.card}>
+      onPress={() => {
+        alertMessage(ty);
+      }}
+       
+      >
+     <Animated.View style={styles.card}
+     
+    
+     >
 
   <View style={styles.priceTag}>
               <Text
@@ -128,7 +169,7 @@ const onRefresh = async () => {
               </View>
             </View>
      </Animated.View>
-       
+     </Pressable>
       );
     };
   
@@ -163,6 +204,7 @@ const onRefresh = async () => {
          
             <FlatList
               data={todos}
+              keyExtractor={({ id }) => id}
               renderItem={({item, index}) => <Card  ty={item} index={index} />}
              
               refreshControl={

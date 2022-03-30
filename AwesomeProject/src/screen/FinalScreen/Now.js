@@ -19,7 +19,22 @@ const Now = ({navigation}) => {
 
 
 
-  const [Vehicle, setVehicle] = useState([])
+  const [Vehicle, setVehicle] = useState([
+
+    {
+      RegistrationNumber: "",
+      createdAt: "",
+      id: "",
+      idNumber: "",
+      province: "",
+      surname: "",
+      updatedAt: "",
+      vehicleModel: "",
+      vehicleType: "",
+      yourName: "",
+
+    }
+  ])
   
 
 
@@ -46,7 +61,10 @@ useEffect(() => {
   fetchRooms();
 }, [])
 
-const post = Vehicle[1];
+
+
+
+const post = Vehicle[0];
 
   console.log(post)
 
@@ -112,11 +130,26 @@ const post = Vehicle[1];
     <View style={[styles.container,{alignItems:'center'}]}>
 <View style={styles.innerContainer}>
 <Image style={styles.image} source={require('../../assets/images/profile2.jpg')} />
-<Text style={{fontSize:18, fontWeight:'bold'}}>{post.surname} {post.yourName}</Text>
+{
+ post.surname?<Text style={{fontSize:18, fontWeight:'bold',color:'black'}}>{post.surname} {post.yourName}</Text>
+: <Text style={{fontSize:18, fontWeight:'bold',color:'black'}}>driver name</Text>
+
+}
 </View>
-<Text style={styles.text}>Delivery type : Bakkie</Text>
-<Text style={styles.text}>Bakkie Registration : {post.RegistrationNumber} </Text>
-<Text style={styles.text}>Bakkie model : {post.vehicleModel}</Text>
+
+{post.RegistrationNumber?<View>
+  <Text style={styles.text}>Delivery type : Bakkie</Text>
+<Text style={styles.text}>Bakkie Registration :{post.RegistrationNumber}  </Text>
+<Text style={styles.text}>Bakkie model {post.vehicleModel}: </Text>
+
+</View>
+
+
+:<Text>info</Text>
+}
+
+
+
     </View>
     <View style={{padding:5,flexDirection:'row',justifyContent:'space-around'}}>
         <TouchableOpacity  style={{padding:5,alignItems:'center'}}
